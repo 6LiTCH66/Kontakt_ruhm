@@ -56,6 +56,7 @@
             this.naitaVanem = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.Eesnimitxt = new System.Windows.Forms.TextBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kontaktAndmedDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kontaktAndmedDataSet)).BeginInit();
@@ -289,11 +290,22 @@
             this.Eesnimitxt.Size = new System.Drawing.Size(114, 20);
             this.Eesnimitxt.TabIndex = 27;
             // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(388, 359);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(92, 17);
+            this.checkBox2.TabIndex = 28;
+            this.checkBox2.Text = "Lisa vanemad";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(971, 584);
+            this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.Eesnimitxt);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.naitaVanem);
@@ -359,6 +371,7 @@
         private System.Windows.Forms.TextBox naitaVanem;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox Eesnimitxt;
+        private System.Windows.Forms.CheckBox checkBox2;
     }
 }
 

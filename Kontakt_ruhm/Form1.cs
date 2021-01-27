@@ -189,6 +189,7 @@ namespace Kontakt_ruhm
 
         }
 
+
         private void button2_Click(object sender, EventArgs e)
         {
             mail SaadaMaili = new mail(checkBox1);
@@ -239,25 +240,36 @@ namespace Kontakt_ruhm
 
         private void lisa_button_Click(object sender, EventArgs e)
         {
-            if (Nimitxt.Text != "" && Telefontxt.Text != "" && Emailtxt.Text != "" && comboBox1.SelectedItem != null && naitaVanem.Text != "")
+            if (Nimitxt.Text != "" && Telefontxt.Text != "" && Emailtxt.Text != "" && comboBox1.SelectedItem != null && checkBox2.Checked)
             {
                 try
                 {
-                    command = new SqlCommand("INSERT INTO Kontakt(nimi, telefon, email, foto, ruhm_id, vanus, naita_vanem) VALUES(@nimi, @telefon, @email, @foto, @ruh, @vanus, @naitaVanem)", connection);
+                    command = new SqlCommand("INSERT INTO Kontakt(nimi, perekonnanimi, telefon, email, foto, ruhm_id, vanus, naita_vanem) VALUES(@nimi, @perekonnanimi, @telefon, @email, @foto, @ruh, @vanus, @naitaVanem)", connection);
                     
                     connection.Open();
                     command.Parameters.AddWithValue("@nimi", Nimitxt.Text);
+                    command.Parameters.AddWithValue("@perekonnanimi", Eesnimitxt.Text);
                     command.Parameters.AddWithValue("@telefon", Telefontxt.Text);
                     command.Parameters.AddWithValue("@email", Emailtxt.Text);
                     string file_pilt = Nimitxt.Text + ".jpg";
                     command.Parameters.AddWithValue("@foto", file_pilt);
                     command.Parameters.AddWithValue("@ruh", (comboBox1.SelectedIndex + 1));
                     command.Parameters.AddWithValue("@vanus", dateTimePicker1.Value);
-                    command.Parameters.AddWithValue("@naitaVanem", naitaVanem.Text);
+
+                    if (checkBox2.Checked == true && DateTimeNow.Year - dateTimePicker1.Value.Year < 18)
+                    {
+                        command.Parameters.AddWithValue("@naitaVanem", "jah");
+                    }
+                    else
+                    {
+                        command.Parameters.AddWithValue("@naitaVanem", "ei");
+                    }
+
                     command.ExecuteNonQuery();
                     connection.Close();
                     DisplayData();
                     ClearData();
+                    checkBox2.Checked = false;
                     MessageBox.Show("Andmed on lisatud");
 
                 }
@@ -266,6 +278,7 @@ namespace Kontakt_ruhm
 
                 }
             }
+
             else
             {
                 MessageBox.Show("Viga!");
