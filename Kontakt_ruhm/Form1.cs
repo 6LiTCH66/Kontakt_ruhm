@@ -59,13 +59,15 @@ namespace Kontakt_ruhm
 
         private void dataGridView1_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (checkBox1.Checked)
+            if (checkBox1.Checked == true)
             {
                 Id = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
                 Nimitxt.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
                 Eesnimitxt.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
                 Telefontxt.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
                 Emailtxt.Text = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
+                dateTimePicker1.Visible = false;
+
             }
             else if(checkBox1.Checked == false)
             {
@@ -74,13 +76,16 @@ namespace Kontakt_ruhm
                 Eesnimitxt.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
                 Telefontxt.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
                 Emailtxt.Text = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
+                
                 GetDate = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
                 dateTimePicker1.Value = Convert.ToDateTime(GetDate);
+                dateTimePicker1.Visible = true;
 
                 vanem = dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString();
 
                 string v = dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString();
                 comboBox1.SelectedIndex = Int32.Parse(v) - 1;
+
             }
 
 
@@ -124,7 +129,35 @@ namespace Kontakt_ruhm
                 command.Parameters.AddWithValue("@foto", file_pilt);
                 command.Parameters.AddWithValue("@ruhm_id", (comboBox1.SelectedIndex + 1));
                 command.Parameters.AddWithValue("@vanus", dateTimePicker1.Value);
-                command.Parameters.AddWithValue("@naita_vanem", naitaVanem.Text);
+
+                if (checkBox2.Checked == true && DateTimeNow.Year - dateTimePicker1.Value.Year < 18)
+                {
+                    checkBox2.Checked = true;
+                    command.Parameters.AddWithValue("@naitaVanem", "jah");
+                    
+                }
+                else if (checkBox2.Checked == false && DateTimeNow.Year - dateTimePicker1.Value.Year >= 18)
+                {
+                    checkBox2.Checked = false;
+                    command.Parameters.AddWithValue("@naitaVanem", "ei");
+                    
+                }
+                else if (checkBox2.Checked == false && DateTimeNow.Year - dateTimePicker1.Value.Year < 18) // less than 18 age
+                {
+                    checkBox2.Checked = false;
+                    MessageBox.Show("Vajutage nuppu 'Näita vanemad!!!' ");
+                }
+                else if (checkBox2.Checked == true && DateTimeNow.Year - dateTimePicker1.Value.Year >= 18)
+                {
+                    checkBox2.Checked = true;
+                    command.Parameters.AddWithValue("@naitaVanem", "jah");
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("@naitaVanem", "ei");
+                }
+
+
                 command.ExecuteNonQuery();
                 connection.Close();
                 DisplayData();
@@ -199,8 +232,10 @@ namespace Kontakt_ruhm
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked)
+            if (checkBox1.Checked == true)
             {
+                label1.Text = "Vali lapsed";
+
                 if (vanem == "jah")
                 {
                     connection.Open();
@@ -210,8 +245,6 @@ namespace Kontakt_ruhm
                     table.Load(command.ExecuteReader());
                     dataGridView1.DataSource = table;
                     connection.Close();
-
-
                 }
                 else if (vanem == "ei")
                 {
@@ -231,8 +264,9 @@ namespace Kontakt_ruhm
                 
 
             }
-            else
+            else if(checkBox2.Checked == false)
             {
+                label1.Text = "Vali rühm";
                 DisplayData();
             }
             
@@ -240,7 +274,7 @@ namespace Kontakt_ruhm
 
         private void lisa_button_Click(object sender, EventArgs e)
         {
-            if (Nimitxt.Text != "" && Telefontxt.Text != "" && Emailtxt.Text != "" && comboBox1.SelectedItem != null && checkBox2.Checked)
+            if (Nimitxt.Text != "" && Telefontxt.Text != "" && Emailtxt.Text != "" && comboBox1.SelectedItem != null && Eesnimitxt.Text != "")
             {
                 try
                 {
@@ -256,7 +290,19 @@ namespace Kontakt_ruhm
                     command.Parameters.AddWithValue("@ruh", (comboBox1.SelectedIndex + 1));
                     command.Parameters.AddWithValue("@vanus", dateTimePicker1.Value);
 
-                    if (checkBox2.Checked == true && DateTimeNow.Year - dateTimePicker1.Value.Year < 18)
+                    if (checkBox2.Checked == true && DateTimeNow.Year - dateTimePicker1.Value.Year < 18) 
+                    {
+                        command.Parameters.AddWithValue("@naitaVanem", "jah");
+                    }
+                    else if (checkBox2.Checked == false && DateTimeNow.Year - dateTimePicker1.Value.Year >= 18)
+                    {
+                        command.Parameters.AddWithValue("@naitaVanem", "ei");
+                    }
+                    else if (checkBox2.Checked == false && DateTimeNow.Year - dateTimePicker1.Value.Year < 18)
+                    {
+                        MessageBox.Show("Vajutage nuppu 'Näita vanemad!!!' ");
+                    }
+                    else if (checkBox2.Checked == true && DateTimeNow.Year - dateTimePicker1.Value.Year >= 18)
                     {
                         command.Parameters.AddWithValue("@naitaVanem", "jah");
                     }

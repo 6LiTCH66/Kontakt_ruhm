@@ -52,8 +52,6 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.naitaVanem = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.Eesnimitxt = new System.Windows.Forms.TextBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
@@ -258,22 +256,6 @@
             this.label6.TabIndex = 23;
             this.label6.Text = "Vali sünipäev";
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(283, 325);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(79, 13);
-            this.label5.TabIndex = 24;
-            this.label5.Text = "Näita vanemad";
-            // 
-            // naitaVanem
-            // 
-            this.naitaVanem.Location = new System.Drawing.Point(388, 322);
-            this.naitaVanem.Name = "naitaVanem";
-            this.naitaVanem.Size = new System.Drawing.Size(114, 20);
-            this.naitaVanem.TabIndex = 25;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -293,11 +275,11 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(388, 359);
+            this.checkBox2.Location = new System.Drawing.Point(286, 324);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(92, 17);
+            this.checkBox2.Size = new System.Drawing.Size(164, 17);
             this.checkBox2.TabIndex = 28;
-            this.checkBox2.Text = "Lisa vanemad";
+            this.checkBox2.Text = "Kas soovite lisada vanemad?";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // Form1
@@ -308,8 +290,6 @@
             this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.Eesnimitxt);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.naitaVanem);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.checkBox1);
@@ -367,8 +347,6 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox naitaVanem;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox Eesnimitxt;
         private System.Windows.Forms.CheckBox checkBox2;
